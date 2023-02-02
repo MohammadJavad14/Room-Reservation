@@ -109,6 +109,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    const attention = Prompt();
     (function () {
         'use strict';
         window.addEventListener('load', function () {
@@ -126,27 +127,89 @@
             });
         }, false);
     })();
-    document.getElementById("colorButton").addEventListener("click", function (){
+    document.getElementById("colorButton").addEventListener("click", function () {
         // notify("this is my message", "error")
-        notifyModal("title", "<em>Hello World</em>", "success", "button text")
+        // notifyModal("title", "<em>Hello World</em>", "success", "button text")
+        attention.error({msg: "Hello"})
     })
     const elem = document.getElementById('reservation-dates');
     const rangepicker = new DateRangePicker(elem, {
-        format:"yyyy-mm-dd"
+        format: "yyyy-mm-dd"
     });
+
     function notify(msg, msgType) {
         notie.alert({
-            type:msgType,
-            text:msg
+            type: msgType,
+            text: msg
         })
     }
-    function notifyModal(title, text, icon,confirmationButtonText ) {
+
+    function notifyModal(title, text, icon, confirmationButtonText) {
         Swal.fire({
             title: title,
             html: text,
             icon: icon,
             confirmButtonText: confirmationButtonText
         })
+    }
+
+    function Prompt() {
+        let toast = function (c) {
+            const {
+                msg = "",
+                icon = "success",
+                position = "top-end",
+
+
+            } = c
+            const Toast = Swal.mixin({
+                toast: true,
+                title: msg,
+                position,
+                icon,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({})
+        }
+
+        let success = function (c) {
+            const {
+                msg = "",
+                title = "",
+                footer = ""
+            } = c
+            Swal.fire({
+                icon: 'success',
+                title,
+                text: msg,
+                footer
+            })
+        }
+        let error = function (c) {
+            const {
+                msg = "",
+                title = "",
+                footer = ""
+            } = c
+            Swal.fire({
+                icon: 'error',
+                title,
+                text: msg,
+                footer
+            })
+        }
+        return {
+            toast,
+            success,
+            error
+        }
     }
 </script>
 </body>
