@@ -24,6 +24,10 @@
             max-width: 50%;
         }
 
+        .datepicker {
+            z-index: 10000;
+        }
+
     </style>
     <title>Document</title>
 </head>
@@ -128,9 +132,23 @@
         }, false);
     })();
     document.getElementById("colorButton").addEventListener("click", function () {
-        // notify("this is my message", "error")
-        // notifyModal("title", "<em>Hello World</em>", "success", "button text")
-        attention.error({msg: "Hello"})
+        let html = `
+       <from id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-row" id="reservation-dates-modal">
+                        <div class="col">
+                            <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                        </div>
+                         <div class="col">
+                            <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </from>
+       `
+        attention.custom({msg: html, title: "Choose your dates"})
     })
     const elem = document.getElementById('reservation-dates');
     const rangepicker = new DateRangePicker(elem, {
@@ -205,10 +223,46 @@
                 footer
             })
         }
+
+        async function custom(c) {
+            const {
+                msg = "",
+                title = ""
+            } = c
+            const {value: formValues} = await Swal.fire({
+                title,
+                html: msg,
+                backdrop: false,
+                focusConfirm: false,
+                showCancelButton: true,
+                willOpen: () => {
+                    const elem = document.getElementById("reservation-dates-modal");
+                    const rp = new DateRangePicker(elem, {
+                        format: "yyyy-mm-dd",
+                    });
+                },
+                preConfirm: () => {
+                    return [
+                        document.getElementById('start').value,
+                        document.getElementById('end').value
+                    ]
+                },
+                didOpen:()=>{
+                    document.getElementById('start').removeAttribute('disabled');
+                    document.getElementById('end').removeAttribute('disabled');
+                }
+            })
+
+            if (formValues) {
+                Swal.fire(JSON.stringify(formValues))
+            }
+        }
+
         return {
             toast,
             success,
-            error
+            error,
+            custom
         }
     }
 </script>
