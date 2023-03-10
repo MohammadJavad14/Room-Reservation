@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/MohammadJavad14/reservation.git/internal/config"
+	"github.com/MohammadJavad14/reservation.git/internal/handlers"
+	"github.com/MohammadJavad14/reservation.git/internal/render"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/MohammadJavad14/reservation.git/pkg/config"
-	"github.com/MohammadJavad14/reservation.git/pkg/handlers"
-	"github.com/MohammadJavad14/reservation.git/pkg/render"
 	"github.com/alexedwards/scs/v2"
 )
 

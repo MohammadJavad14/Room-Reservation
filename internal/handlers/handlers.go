@@ -3,12 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/MohammadJavad14/reservation.git/internal/config"
+	"github.com/MohammadJavad14/reservation.git/internal/models"
+	"github.com/MohammadJavad14/reservation.git/internal/render"
 	"log"
 	"net/http"
-
-	"github.com/MohammadJavad14/reservation.git/pkg/config"
-	"github.com/MohammadJavad14/reservation.git/pkg/models"
-	"github.com/MohammadJavad14/reservation.git/pkg/render"
 )
 
 var Repo *Repository

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/MohammadJavad14/reservation.git/internal/config"
+	"github.com/MohammadJavad14/reservation.git/internal/handlers"
 	"net/http"
 
-	"github.com/MohammadJavad14/reservation.git/pkg/config"
-	"github.com/MohammadJavad14/reservation.git/pkg/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
