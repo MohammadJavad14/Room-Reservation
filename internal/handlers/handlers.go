@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/MohammadJavad14/reservation.git/internal/config"
+	"github.com/MohammadJavad14/reservation.git/internal/forms"
 	"github.com/MohammadJavad14/reservation.git/internal/models"
 	"github.com/MohammadJavad14/reservation.git/internal/render"
 	"log"
@@ -49,7 +50,13 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// PostReservation handles the posting of a reservation form
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 }
 
 // Generals is the about generals handler
